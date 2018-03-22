@@ -22,9 +22,14 @@ public class GlobalExceptionHandler {
 								 ) throws ServletException, IOException {
 		// 1. 로깅
 		StringWriter errors = new StringWriter();
+		
+		// 예가 toString으로 빠져버려서 정확한 에러가 안나오던거임.
 		e.printStackTrace(new PrintWriter(errors));
 		
-		request.setAttribute("errors", errors);
+		request.setAttribute("errors", errors.toString());
+		
+		// 한번 더 찍어주면 상세한 에러를 볼 수 있음
+		e.printStackTrace();
 		
 		// 2. 사과
 		request.

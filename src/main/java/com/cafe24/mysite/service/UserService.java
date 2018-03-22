@@ -18,8 +18,10 @@ public class UserService {
 	public UserVO getUser(UserVO vo) {
 		if(vo.getPassword() == "" || vo.getPassword() == null)
 			return userDAO.get(vo.getNo());
-		else
-			return userDAO.get(vo.getEmail(), vo.getPassword());
+		else {
+			//return userDAO.get(vo.getEmail(), vo.getPassword());
+			return userDAO.get(vo);
+		}
 	}
 	
 	public boolean update(UserVO vo) {

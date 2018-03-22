@@ -6,6 +6,10 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import javax.sql.DataSource;
+
+import org.apache.ibatis.session.SqlSession;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.cafe24.mysite.exception.UserDAOException;
@@ -13,15 +17,27 @@ import com.cafe24.mysite.vo.UserVO;
 
 @Repository
 public class UserDAO {
+	
+	@Autowired
+	private DataSource dataSource;
+	
+	@Autowired
+	private SqlSession sqlSession;
+	
 	public boolean update(UserVO vo) {
-		boolean result = false;
+		
+		// 패스워드에 따라 다이나믹 쿼리 발생
+		int count = sqlSession.update("user.update", vo);
+		return count == 1;
+		
+		/*boolean result = false;
 		
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		String sql = "";
 		
 		try {
-			conn = getConnection();
+			conn = dataSource.getConnection();
 			
 			if(vo.getPassword() == "" || vo.getPassword() == null) {
 				sql = "update users " + 
@@ -47,15 +63,6 @@ public class UserDAO {
 				pstmt.setLong(4, vo.getNo());
 			}
 		
-			/*pstmt = conn.prepareStatement(sql);
-			
-			System.out.println("===> " + vo.getName());
-			System.out.println("===> " + vo.getPassword());
-			System.out.println("===> " + vo.getGender());
-			System.out.println("===> " + vo.getNo());*/
-			
-		
-			
 			int count = pstmt.executeUpdate();
 		
 			result = (count==1);
@@ -72,18 +79,21 @@ public class UserDAO {
 		
 		
 		
-		return result;
+		return result;*/
 	}
 	
 	public UserVO get(Long no) {
-		UserVO result = null;
+		//UserVO result = null;
 		
-		Connection conn = null;
+		//return sqlSession.selectOne("user.getByEmailAndPassword", vo);
+		return sqlSession.selectOne("user.getByNo", no);
+		
+		/*Connection conn = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		
 		try {
-			conn = getConnection();
+			conn = dataSource.getConnection();
 			
 			String sql = "select no, name, email, gender from users " + 
 					" where no = ?";
@@ -113,59 +123,26 @@ public class UserDAO {
 			}
 		}
 		
-		return result;
+		return result;*/
 	}
 	
-	public UserVO get(String email, String password) {
-		UserVO result = null;
-		
-		Connection conn = null;
-		PreparedStatement pstmt = null;
-		ResultSet rs = null;
-		
-		try {
-			conn = getConnection();
-			
-			String sql = "select no, name, email, gender from users " + 
-					" where email = ? and password=password(?)";
-			pstmt = conn.prepareStatement(sql);
-			
-			pstmt.setString(1, email);
-			pstmt.setString(2, password);
-			
-			rs = pstmt.executeQuery();
-			
-			if(rs.next()) {
-				result = new UserVO();
-				result.setNo(rs.getLong(1));
-				result.setName(rs.getString(2));
-				result.setEmail(rs.getString(3));
-				result.setGender(rs.getString(4));
-			}
-			
-		} catch (SQLException e) {
-			throw new UserDAOException();
-		} finally {
-			try {
-				if(rs != null) rs.close();
-				if(pstmt != null) pstmt.close();
-				if(conn != null) conn.close();
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
-		}
-		
-		return result;
+	public UserVO get(UserVO vo) {		
+		return sqlSession.selectOne("user.getByEmailAndPassword", vo);
 	}
 	
 	public boolean insert(UserVO vo) {
-		boolean result = false;
+		
+		int count = sqlSession.insert("user.insert", vo);
+		
+		return count == 1;
+		
+		/*boolean result = false;
 		
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		
 		try {
-			conn = getConnection();
+			conn = dataSource.getConnection();
 			
 			String sql = "insert into users " + 
 					 	 "values (null, ?, ?, " + 
@@ -190,10 +167,10 @@ public class UserDAO {
 			}
 		}
 		
-		return result;
+		return result;*/
 	}
 	
-	private Connection getConnection() throws SQLException {
+	/*private Connection getConnection() throws SQLException {
 		Connection conn = null;
 		
 		try {
@@ -206,5 +183,5 @@ public class UserDAO {
 		}
 		
 		return conn;
-	}
+	}*/
 }

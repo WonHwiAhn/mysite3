@@ -8,12 +8,19 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.sql.DataSource;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.cafe24.mysite.vo.GuestbookVO;
 
 @Repository
 public class GuestbookDAO {
+	
+	@Autowired
+	private DataSource dataSource;
+	
 	public List<GuestbookVO> getList(){
 		List<GuestbookVO> list = new ArrayList<GuestbookVO>();
 		Connection conn = null;
@@ -21,7 +28,7 @@ public class GuestbookDAO {
 		ResultSet rs = null;
 		
 		try {
-			conn = getConnection();
+			conn = dataSource.getConnection();
 			
 			String sql = "SELECT no, name, password, " + 
 						 "content, reg_date " + 
@@ -61,7 +68,7 @@ public class GuestbookDAO {
 		PreparedStatement pstmt = null;
 		
 		try {
-			conn = getConnection();
+			conn = dataSource.getConnection();
 			
 			String sql = "insert into guestbook " + 
 					"values(null, ?, ?, ?, " + 
@@ -95,7 +102,7 @@ public class GuestbookDAO {
 		ResultSet rs = null;
 		
 		try {
-			conn = getConnection();
+			conn = dataSource.getConnection();
 			
 			String sql = "SELECT password FROM guestbook WHERE no=?";
 			pstmt = conn.prepareStatement(sql);
@@ -135,7 +142,7 @@ public class GuestbookDAO {
 		PreparedStatement pstmt = null;
 		
 		try {
-			conn = getConnection();
+			conn = dataSource.getConnection();
 			
 			String sql = "DELETE FROM guestbook WHERE no=?";
 			pstmt = conn.prepareStatement(sql);
@@ -159,7 +166,7 @@ public class GuestbookDAO {
 		
 		return false;
 	}
-	
+	/*
 	private Connection getConnection() throws SQLException {
 		Connection conn = null;
 		
@@ -173,5 +180,5 @@ public class GuestbookDAO {
 		}
 		
 		return conn;
-	}
+	}*/
 }

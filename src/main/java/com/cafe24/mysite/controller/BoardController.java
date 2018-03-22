@@ -97,21 +97,18 @@ public class BoardController {
 		
 		System.out.println("키워드가 있을 때 view페이지 ==> " + keyword);
 		
-		if(keyword != null)
-			model.addAttribute("kwd", keyword);
-		
 		BoardVO boardInfo = boardService.get(vo.getNo(), true);
 		
 		model.addAttribute("no", vo.getNo());
 		model.addAttribute("page", page);
-		
+		model.addAttribute("kwd", keyword);
 		model.addAttribute("vo", boardInfo);
 		
 		return "/board/view";
 	}
 	
 	// 게시글 보기 (로그인 안해도 가능하고 다른 사람것도 볼 수 있음), 검색어 없을 경우
-	@RequestMapping(value="view", method=RequestMethod.GET)
+	/*@RequestMapping(value="view", method=RequestMethod.GET)
 	public String view(
 					   @RequestParam int page,
 					   @ModelAttribute BoardVO vo,
@@ -126,12 +123,13 @@ public class BoardController {
 		model.addAttribute("vo", boardInfo);
 		
 		return "/board/view";
-	}
+	}*/
 	
 	// 게시글 수정 (내가 올린 글만)
 	@RequestMapping(value="modify", method=RequestMethod.GET)
 	public String modify(@RequestParam Long no,
 					     @RequestParam int page,
+					     @RequestParam(value="kwd", required=false, defaultValue="") String keyword,
 					     @ModelAttribute BoardVO vo,
 					     HttpSession session,
 					     Model model) {
@@ -139,11 +137,11 @@ public class BoardController {
 		UserVO authUser = (UserVO)session.getAttribute("authUser");
 		
 		if(authUser != null) {
-			
 			BoardVO boardInfo = boardService.get(no, false);
 			
 			model.addAttribute("no", no);
 			model.addAttribute("page", page);
+			model.addAttribute("kwd", keyword);
 			model.addAttribute("vo", boardInfo);
 			
 			return "/board/modify";
@@ -153,7 +151,7 @@ public class BoardController {
 	}
 	
 	// 게시글 수정 (내가 올린 글만)
-	@RequestMapping(value="modify", method=RequestMethod.GET)
+	/*@RequestMapping(value="modify", method=RequestMethod.GET)
 	public String modify(@RequestParam Long no,
 					     @RequestParam int page,
 					     @RequestParam("kwd") String keyword,
@@ -178,16 +176,17 @@ public class BoardController {
 		}
 		
 		return "/board/list?page="+1;
-	}
+	}*/
 	
 	@RequestMapping(value="modify", method=RequestMethod.POST)
 	public String modify(@RequestParam Long no,
 						 @RequestParam int page,
+						 @RequestParam(value="kwd", required=false, defaultValue="") String keyword,
 						 @ModelAttribute BoardVO vo) {
 		
 		boardService.update(vo);
 		
-		return "redirect:/board/list?page="+page;
+		return "redirect:/board/search?page="+page+"&kwd="+keyword;
 	}
 	
 	

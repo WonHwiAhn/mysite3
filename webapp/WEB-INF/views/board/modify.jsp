@@ -1,6 +1,6 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%> 
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%
 	pageContext.setAttribute("cr", "\r");
@@ -23,6 +23,7 @@
 			<div id="board">
 				<form class="board-form" method="post" action="${pageContext.servletContext.contextPath }/board/modify">
 					<input type="hidden" name="no" value="${vo.no}">
+					<input type="hidden" name="kwd" value="${kwd}">
 					<input type="hidden" name="page" value="${page }"/>
 					<table class="tbl-ex">
 						<tr>
