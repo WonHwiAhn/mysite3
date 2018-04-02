@@ -1,4 +1,4 @@
-<%@page import="com.cafe24.mysite.repository.GuestbookDAO"%>
+<%-- <%@page import="com.cafe24.mysite.repository.GuestbookDAO"%>
 <%
 	request.setCharacterEncoding("utf-8");
 	
@@ -17,4 +17,4 @@
 	}else{
 		response.sendRedirect("${pageContext.servletContext.contextPath }/gb/failed");
 	}
-%>
+%> --%>

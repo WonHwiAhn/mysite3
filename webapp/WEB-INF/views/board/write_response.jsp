@@ -14,8 +14,7 @@
 		<c:import url="/WEB-INF/views/includes/header_jstl.jsp"></c:import>
 		<div id="content">
 			<div id="board">
-				<form class="board-form" method="post" action="${pageContext.servletContext.contextPath }/board">
-					<input type = "hidden" name = "a" value="write_res">
+				<form class="board-form" method="post" action="${pageContext.servletContext.contextPath }/board/write">
 					<input type = "hidden" name="no" value="${vo.no }">
 					<input type = "hidden" name="page" value="${page }">
 					<table class="tbl-ex">

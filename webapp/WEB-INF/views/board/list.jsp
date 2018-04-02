@@ -14,7 +14,7 @@
 		<c:import url="/WEB-INF/views/includes/header_jstl.jsp"></c:import>
 		<div id="content">
 			<div id="board">
-				<form id="search_form" action="${pageContext.servletContext.contextPath }/board/search" method="post">
+				<form id="search_form" action="${pageContext.servletContext.contextPath }/board/list" method="post">
 					<input type="hidden" name="page" value="1">
 					<input type="text" id="kwd" name="kwd" value="${kwd }">
 					<input type="submit" value="찾기">
@@ -137,7 +137,7 @@
 					<!-- 검색 키워드가 있을 경우 -->
 					<c:if test="${kwd ne null }">
 						<c:if test="${page-1 >= 1 }">
-							<li><a href="${pageContext.servletContext.contextPath }/board?a=search&page=${page-1}&kwd=${kwd}">◀</a></li>
+							<li><a href="${pageContext.servletContext.contextPath }/board/list?page=${page-1}&kwd=${kwd}">◀</a></li>
 						</c:if>
 						<c:if test="${page-1 < 1 }">
 							<%-- <li><a href="${pageContext.servletContext.contextPath }/board?a=search&page=1&kwd=${kwd}">◀</a></li> --%>
@@ -150,7 +150,7 @@
 									<li class="selected">${realPage + status.index}</li>
 									</c:if>
 									<c:if test="${realPage + status.index ne page}">
-										<li><a href="${pageContext.servletContext.contextPath }/board?a=search&page=${realPage + status.index}&kwd=${kwd}">${realPage + status.index}</a></li>
+										<li><a href="${pageContext.servletContext.contextPath }/board/list?page=${realPage + status.index}&kwd=${kwd}">${realPage + status.index}</a></li>
 									</c:if>
 								</c:when>
 								<c:otherwise>
@@ -159,7 +159,7 @@
 							</c:choose>
 						</c:forEach>
 						<c:if test="${page+1 <= totalCount/10+0.9 }">
-							<li><a href="${pageContext.servletContext.contextPath }/board?a=search&page=${page+1}&kwd=${kwd}">▶</a></li>
+							<li><a href="${pageContext.servletContext.contextPath }/board/list?page=${page+1}&kwd=${kwd}">▶</a></li>
 						</c:if>
 						<c:if test="${page+1 > totalCount/10+0.9 }">
 							<%-- <li><a href="${pageContext.servletContext.contextPath }/board?a=search&page=${page}&kwd=${kwd}">▶</a></li> --%>
