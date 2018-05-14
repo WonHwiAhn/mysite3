@@ -10,6 +10,11 @@
 <link href="${pageContext.servletContext.contextPath }/assets/css/board.css" rel="stylesheet">
 </head>
 <body>
+	<c:set value="${pageMap['realPage']}" var="realPage"/>
+	<c:set value="${pageMap['page']}" var="page"/>
+	<c:set value="${pageMap['endPage']}" var="endPage"/>
+	<c:set value="${pageMap['startPage']}" var="startPage"/>
+	
 	<div id="container">
 		<c:import url="/WEB-INF/views/includes/header_jstl.jsp"></c:import>
 		<div id="content">
@@ -52,7 +57,7 @@
 								<c:if test="${vo.deleteBool ne 1}">
 									<!-- 키워드가 있을 경우 -->
 									<c:if test="${kwd ne null }">
-										<a href="${pageContext.servletContext.contextPath }/board/view?no=${vo.no }&page=${page}&kwd=${kwd}">${vo.title}</a>
+										<a href="${pageContext.servletContext.contextPath }/board/view?no=${vo.no }&page=${pageMappage}&kwd=${kwd}">${vo.title}</a>
 									</c:if>
 									<!-- 키워드가 없을 경우 -->
 									<c:if test="${kwd eq null }">
@@ -82,21 +87,21 @@
 			<%-- 	<input type="text" value="${totalCount }"/> --%>
 				<div class="pager">
 					<ul>
-					<fmt:parseNumber var="divPage" value="${page/5.1}" integerOnly="true" />
+					
 					<!-- ${5*(page/5.1)+1} -->
-					<c:set value="${5*divPage+1}" var="realPage"/>
+					
 					<c:if test="${kwd eq null }">
 					<!-- c:out으로 page(5)로 나눴을 때 따로 구해서 값 계산 해야될 듯 -->
-						<c:if test="${page-1 >= 1 }">
-							<li><a href="${pageContext.servletContext.contextPath }/board/list?page=${page-1}">◀</a></li>
+						<c:if test="${startPage >= 1 }">
+							<li><a href="${pageContext.servletContext.contextPath }/board/list?page=${startPage}">◀</a></li>
 						</c:if>
-						<c:if test="${page-1 < 1 }">
+						<c:if test="${startPage < 1 }">
 							<!-- <li><a href="${pageContext.servletContext.contextPath }/board?a=index&page=1">◀</a></li> -->
 							<li>◀</li>
 						</c:if>
 						<c:forEach begin="0" end="4" step="1" var="vo" varStatus="status">
 							<c:choose>
-								<c:when test="${totalCount/10+0.9 >= realPage + status.index}">
+								<c:when test="${endPage >= realPage + status.index}">
 									<c:if test="${realPage + status.index eq page}">
 									<li class="selected">${realPage + status.index}</li>
 									</c:if>
@@ -125,10 +130,10 @@
 							<li><a href="${pageContext.servletContext.contextPath }/board?a=index&page=${realPage+3}">${realPage+3}</a></li>
 							<li>${realPage+4}</li> --%>
 						</c:forEach>
-						<c:if test="${page+1 <= totalCount/10+0.9 }">
+						<c:if test="${page+1 <= endPage }">
 							<li><a href="${pageContext.servletContext.contextPath }/board/list?page=${page+1}">▶</a></li>
 						</c:if>
-						<c:if test="${page+1 > totalCount/10+0.9 }">
+						<c:if test="${page+1 > endPage }">
 							<%-- <li><a href="${pageContext.servletContext.contextPath }/board?a=index&page=${page}">▶</a></li> --%>
 							<li>▶</li>
 						</c:if>
@@ -136,16 +141,16 @@
 					
 					<!-- 검색 키워드가 있을 경우 -->
 					<c:if test="${kwd ne null }">
-						<c:if test="${page-1 >= 1 }">
-							<li><a href="${pageContext.servletContext.contextPath }/board/list?page=${page-1}&kwd=${kwd}">◀</a></li>
+						<c:if test="${startPage >= 1 }">
+							<li><a href="${pageContext.servletContext.contextPath }/board/list?page=${startPage}&kwd=${kwd}">◀</a></li>
 						</c:if>
-						<c:if test="${page-1 < 1 }">
+						<c:if test="${startPage < 1 }">
 							<%-- <li><a href="${pageContext.servletContext.contextPath }/board?a=search&page=1&kwd=${kwd}">◀</a></li> --%>
 							<li>◀</li>
 						</c:if>
 						<c:forEach begin="0" end="4" step="1" var="vo" varStatus="status">
 							<c:choose>
-								<c:when test="${totalCount/10+0.9 >= realPage + status.index}">
+								<c:when test="${endPage >= realPage + status.index}">
 									<c:if test="${realPage + status.index eq page}">
 									<li class="selected">${realPage + status.index}</li>
 									</c:if>
@@ -158,10 +163,10 @@
 								</c:otherwise>
 							</c:choose>
 						</c:forEach>
-						<c:if test="${page+1 <= totalCount/10+0.9 }">
+						<c:if test="${page+1 <= endPage }">
 							<li><a href="${pageContext.servletContext.contextPath }/board/list?page=${page+1}&kwd=${kwd}">▶</a></li>
 						</c:if>
-						<c:if test="${page+1 > totalCount/10+0.9 }">
+						<c:if test="${page+1 > endPage }">
 							<%-- <li><a href="${pageContext.servletContext.contextPath }/board?a=search&page=${page}&kwd=${kwd}">▶</a></li> --%>
 							<li>▶</li>
 						</c:if>

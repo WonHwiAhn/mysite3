@@ -2,11 +2,13 @@
 <!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
 	<typeAliases>
-	
+		<typeAlias alias="guestbookvo" type="com.cafe24.mysite.vo.GuestbookVO" />
+		<typeAlias alias="uservo" type="com.cafe24.mysite.vo.UserVO" />
     </typeAliases>
     		
 	<mappers>
 		<mapper resource="mybatis/mappers/user.xml" />
+		<mapper resource="mybatis/mappers/guestbook.xml" />
 		<!-- <mapper resource="mybatis/mappers/board.xml" />
 		<mapper resource="mybatis/mappers/guestbook.xml" /> -->
 	</mappers>

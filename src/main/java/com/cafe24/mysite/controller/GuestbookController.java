@@ -9,7 +9,9 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.cafe24.mysite.dto.JSONResult;
 import com.cafe24.mysite.service.GuestbookService;
 import com.cafe24.mysite.vo.GuestbookVO;
 
@@ -48,5 +50,10 @@ public class GuestbookController {
 		}
 		
 		return "/guestbook/failed";
+	}
+	
+	@RequestMapping("/ajax")
+	public String ajax() {
+		return "guestbook/index-ajax";
 	}
 }

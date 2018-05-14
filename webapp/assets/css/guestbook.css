@@ -27,3 +27,103 @@
 #guestbook.delete-message p	{ padding:100px; height:50px; text-align:center }
 
 #guestbook textarea#content	{ width: 100%; border:none; height: 100px; resize: none; outline: none; }
+
+/* 여기부터는 ajax css*/
+#guestbook h1 a:link {
+	color:#665F57;
+	text-decoration: none;
+}
+#guestbook h1 a:visited {
+	color:#665F57;
+	text-decoration: none;
+}
+#guestbook h1 a:hover {
+	color:#665F57;
+	text-decoration: none;
+}
+
+/* 보내기 */
+#input-submit {
+	font-weight:bold;
+ 	padding:5px 15px; 
+    background:#ccc; 
+    border:0 none;
+    width: 527px;
+	height:30px;
+	cursor:url(../images/customecurso.cur), auto;
+	-webkit-transition-duration: 0.4s; /* Safari */
+    transition-duration: 0.4s;
+}
+
+#input-submit:hover {
+    box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24),0 17px 50px 0 rgba(0,0,0,0.19);
+}
+
+/* 컨텐츠 */
+#tx-content {
+	border:2px solid #665F57;
+	height:100px;
+	width: 513px;
+	resize:none;
+}
+/* 이름, 비밀번호, 컨텐츠, 보내기를 감싼 form */
+#add-form {
+	margin: 15px 0 auto;
+}
+
+/*form 안에 있는 input과 textarea*/
+#add-form input, #add-form textarea{
+	display:block;
+	margin:10px;
+	padding:5px;
+}
+
+/*form 안에 있는 input*/
+#add-form input[type=text],  #add-form input[type=password]{
+	border:2px solid #665F57;
+	height:30px;
+	width: 513px;
+}
+
+/***********form 아래 댓글부분***********/
+#guestbook ul li strong, #guestbook ul li a {
+	width:470px;
+	display:block;	
+}
+
+#guestbook ul li	{
+	position:relative;
+	margin-left:15px;
+	margin-top:5px;
+	background:url(../images/user.png) 7px 23px no-repeat;
+}
+
+#guestbook ul li a {
+	position:absolute;
+	left:23px;
+	top:40px;
+}
+
+#guestbook ul li strong, #guestbook ul li p {
+	padding:10px;
+	width:450px;
+	margin-left:50px;
+}
+
+#guestbook ul li strong{
+	font-weight:bold;
+	color:#595856;
+}
+
+#guestbook ul li p {
+	border-radius: 5px 5px;
+	background-color:#E6E6E6;
+}
+
+.del-ajax {
+	width:20px;
+	height:20px; 
+	font-size:0;
+	background:url(../images/delete.png) 0 0 no-repeat;
+}
+

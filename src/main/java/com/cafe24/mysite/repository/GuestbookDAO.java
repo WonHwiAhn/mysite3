@@ -10,6 +10,7 @@ import java.util.List;
 
 import javax.sql.DataSource;
 
+import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -21,8 +22,20 @@ public class GuestbookDAO {
 	@Autowired
 	private DataSource dataSource;
 	
+	@Autowired
+	private SqlSession sqlSession;
+	
+	public GuestbookVO get(Long no) {
+		return sqlSession.selectOne("guestbook.getByNo", no);
+	}
+	
+	public List<GuestbookVO> getList(Long no){
+		return sqlSession.selectList("guestbook.getList", no);
+	}
+	
 	public List<GuestbookVO> getList(){
-		List<GuestbookVO> list = new ArrayList<GuestbookVO>();
+		return sqlSession.selectList("guestbook.getList");
+		/*List<GuestbookVO> list = new ArrayList<GuestbookVO>();
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -59,11 +72,13 @@ public class GuestbookDAO {
 				
 			}
 		}
-		return list;
+		return list;*/
 	}
 	
 	public boolean insert(GuestbookVO vo) {
-		boolean result = false;
+		int count = sqlSession.insert("guestbook.insert", vo);
+		return count == 1;
+		/*boolean result = false;
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		
@@ -92,7 +107,7 @@ public class GuestbookDAO {
 			}
 		}
 		
-		return result;
+		return result;*/
 	}
 	
 	/////// 비밀번호 체크
@@ -165,6 +180,11 @@ public class GuestbookDAO {
 		}
 		
 		return false;
+	}
+	
+	public boolean delete(GuestbookVO vo) {
+		int count = sqlSession.delete("guestbook.delete", vo);
+		return count == 1;
 	}
 	/*
 	private Connection getConnection() throws SQLException {

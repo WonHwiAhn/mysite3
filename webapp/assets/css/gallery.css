@@ -1,0 +1,87 @@
+@CHARSET "UTF-8";
+@import "mysite.css";
+
+#gallery			{ margin:20px auto;	padding:10px; width:540px; }
+#gallery ul			{ width: 100%; clear:both; }
+
+#gallery-title		{ width:540px; height:70px;}
+
+#gallery-logo 		{ width:150px; height:70px; float:left; margin:0px auto;}
+
+#gallery a {
+}
+
+#gallery h1	{
+	width:134px;
+	height:32px;
+	position:relative;
+	float:left;
+}
+
+#gallery h1 a:link {
+	color:#665F57;
+	text-decoration: none;
+}
+#gallery h1 a:visited {
+	color:#665F57;
+	text-decoration: none;
+}
+#gallery h1 a:hover {
+	color:#665F57;
+	text-decoration: none;
+}
+
+#gallery ul li {
+	margin:3px;
+	border:3px solid #929292;
+	position:relative;
+	float:left;
+	overflow-y:hidden;
+}
+
+#gallery ul li a.image {
+	display:block;
+	width:114px;
+	height:114px;
+	background-size: 114px;
+	background-repeat: no-repeat;
+	background-position: center center;
+	font-size:0;
+}
+
+#upload-image {
+	margin-right:39px;
+	width:131px;
+	height:45px;
+	background:url(../images/upload-image.jpg) 0 0 no-repeat;
+	display: block;
+	float: right;
+	font-size:0;
+}
+
+#gallery ul li a.del-button {
+	width:15px;
+	height:15px;
+	position:absolute;
+	right:2px;
+	top:3px;
+	display:none;
+	background:url(../images/delete-imge.png) 0 0 no-repeat;
+	background-size: 15px 15px;
+	font-size:0;
+}
+
+#gallery ul li:hover a.del-button {
+	display:block;
+}
+
+
+/* 이미지 업로드 팝업 레이어 */ 
+#dialog-upload-form 					{ text-align: left; }
+#dialog-upload-form p					{ padding:20px 0 5px 0; font-weight: bold; font-size:1.1em }
+#dialog-upload-form label, 
+#dialog-upload-form input				{ display:block; }
+#dialog-upload-form label				{ font-weight:bold; margin-top:10px; }
+#dialog-upload-form input				{ outline:none; margin-top:5px; }
+#dialog-upload-form input[type='text']	{ padding: 5px; border:2px solid #A9A9A9; width:260px; }
+

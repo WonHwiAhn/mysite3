@@ -2,5 +2,18 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="user">
-	
+<!-- 	<select id="getList" parameterType="long" resultType="uservo">
+		<![CDATA[
+			select no, name, content, date_format(reg_date, '%Y-%M')
+			from guestbook]]>
+			<if test="_parameter > 0">
+				<![CDATA[where no < #{_parameter}]]>
+			</if>
+			<![CDATA[
+			order by reg_date desc
+				limit 0, 5
+		]]>
+	</select> -->	
 </mapper>
+
+

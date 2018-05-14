@@ -26,30 +26,34 @@ public class BoardController {
 	
 	// 키워드 없이 전체 리스트 검색
 	@RequestMapping(path= {"list", ""})
-	public String getList(@RequestParam int page, Model model){
+	public String getList(@RequestParam int page,
+						  @RequestParam(value="kwd", required=false, defaultValue="MONIBUYBGTF") String keyword, 
+						  Model model){
 		
-		// 리스트의 모든 정보를 가져와서 list에 담아줌.
-		model.addAttribute("list", boardService.getList(page));
-		// 현재 리스트의 총 개수를 구해줌.
-		model.addAttribute("totalCount", boardService.totalCount());
-		model.addAttribute("page", page);
+		if(!"MONIBUYBGTF".equals(keyword)) {
+			model.addAttribute("list", boardService.getList(keyword, page));
+			model.addAttribute("kwd", keyword);
+		}else {
+			model.addAttribute("list", boardService.getList(page));
+		}
 		
-		return "board/list";
+		model.addAttribute("pageMap", boardService.calcPage(page, boardService.totalCount()));
+		
+		return "board/list2";
 	}
 	
 	// 키워드 있을 때 전체 리스트 검색
-	@RequestMapping("search")
+	/*@RequestMapping("search")
 	public String getList(@RequestParam int page,
 						  @RequestParam("kwd") String keyword,
 						  Model model) {
 		
-		model.addAttribute("page", page);
-		model.addAttribute("totalCount", boardService.totalCount(keyword));
 		model.addAttribute("kwd", keyword);
 		model.addAttribute("list", boardService.getList(keyword, page));
+		model.addAttribute("pageMap", boardService.calcPage(page, boardService.totalCount()));
 		
 		return "board/list";
-	}
+	}*/
 	
 	// 게시글 작성 페이지로 이동
 	@RequestMapping(value="write", method=RequestMethod.GET)

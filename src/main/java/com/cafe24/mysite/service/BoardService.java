@@ -1,5 +1,6 @@
 package com.cafe24.mysite.service;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,11 +14,11 @@ public class BoardService {
 	
 	@Autowired
 	private BoardDAO boardDAO;
-	
+	private int page;
 	
 	//====== 전체 리스트 관련 쿼리 ======== 
 	// 전체리스트 (검색어x)
-	public List<BoardVO> getList(int page){		
+	public List<BoardVO> getList(int page){
 		return boardDAO.getList(page);
 	}
 	
@@ -56,5 +57,22 @@ public class BoardService {
 	// 전체 게시물의 총 수 구하는 메소드 (검색어 있을 경우에)
 	public int totalCount(String keyword) {
 		return boardDAO.getPage(keyword);
+	}
+	
+	public HashMap<String, Integer> calcPage(int page, int totalCount) {
+		int divPage = (int)(page / 5.1);
+		int realPage = (int)(5*divPage+1);
+		int endPage = (int)(totalCount/10+0.9);
+		int startPage = page-1;
+		
+		HashMap<String, Integer> map =
+							new HashMap<String, Integer>();
+		
+		map.put("page", page);
+		map.put("realPage", realPage);
+		map.put("endPage", endPage);
+		map.put("startPage", startPage);
+		
+		return map;
 	}
 }
