@@ -39,7 +39,7 @@ public class EditorTest {
             // 파일명을 받는다 - 일반 원본파일명
             String oldName = request.getHeader("file-name");
             // 파일 기본경로 _ 상세경로
-            String filePath = "C:/cafe24/workspace/180321_mysite3/webapp/resources/photoUpload/";
+            String filePath = "C:/cafe24/workspace/mysite3/webapp/resources/photoUpload/";
             String saveName = sb.append(new SimpleDateFormat("yyyyMMddHHmmss")
                           .format(System.currentTimeMillis()))
                           .append(UUID.randomUUID().toString())
