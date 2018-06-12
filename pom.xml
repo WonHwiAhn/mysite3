@@ -254,7 +254,7 @@
 				<artifactId>tomcat-maven-plugin</artifactId>
 				<configuration>
 					<!-- apache랑 충돌날 수도 있어서 포트번호 다시 변경 -->
-					<url>http://devbit010.cafe24.com/manager/text</url>
+					<url>https://devbit010.cafe24.com/manager/text</url>
 					<path>/mysite3</path>
 					<username>admin</username>
 					<password>manager</password>
